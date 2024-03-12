@@ -1,0 +1,9 @@
+{
+    "profiles": {
+        "PowerShell": {
+            "commandName": "Executable",
+            "executablePath": "powershell.exe",
+            "commandLineArgs": "-NoExit -Command \"& ipmo .\\pbench.PowerShell.dll -Verbose"
+        }
+    }
+}
