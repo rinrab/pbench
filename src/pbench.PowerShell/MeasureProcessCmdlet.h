@@ -7,14 +7,14 @@ public ref class MeasureProcessCmdlet : PSCmdlet
 {
 public:
     [Parameter(Position = 0, Mandatory = true)]
-        property System::String^ FilePath
+    property System::String^ FilePath
     {
         System::String^ get() { return filePath; }
         void set(String^ value) { filePath = value; }
     }
 
     [Parameter(ValueFromRemainingArguments = true)]
-        property array<String^>^ ArgumentList
+    property array<String^>^ ArgumentList
     {
         array<String^>^ get() { return argumentList; }
         void set(array<String^>^ value) { argumentList = value; }
