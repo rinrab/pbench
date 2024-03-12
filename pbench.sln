@@ -22,6 +22,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E80BA0D9-236
 		src\Directory.Build.props = src\Directory.Build.props
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pbench.PowerShell", "src\pbench.PowerShell\pbench.PowerShell.vcxproj", "{2877E369-B3FE-475E-A044-CC24CBF4786E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM64 = Debug|ARM64
@@ -56,6 +58,18 @@ Global
 		{8F5FA89A-4551-4584-AA0C-086656EB4FC6}.Release|x64.Build.0 = Release|x64
 		{8F5FA89A-4551-4584-AA0C-086656EB4FC6}.Release|x86.ActiveCfg = Release|x86
 		{8F5FA89A-4551-4584-AA0C-086656EB4FC6}.Release|x86.Build.0 = Release|x86
+		{2877E369-B3FE-475E-A044-CC24CBF4786E}.Debug|ARM64.ActiveCfg = Debug|x64
+		{2877E369-B3FE-475E-A044-CC24CBF4786E}.Debug|ARM64.Build.0 = Debug|x64
+		{2877E369-B3FE-475E-A044-CC24CBF4786E}.Debug|x64.ActiveCfg = Debug|x64
+		{2877E369-B3FE-475E-A044-CC24CBF4786E}.Debug|x64.Build.0 = Debug|x64
+		{2877E369-B3FE-475E-A044-CC24CBF4786E}.Debug|x86.ActiveCfg = Debug|Win32
+		{2877E369-B3FE-475E-A044-CC24CBF4786E}.Debug|x86.Build.0 = Debug|Win32
+		{2877E369-B3FE-475E-A044-CC24CBF4786E}.Release|ARM64.ActiveCfg = Release|x64
+		{2877E369-B3FE-475E-A044-CC24CBF4786E}.Release|ARM64.Build.0 = Release|x64
+		{2877E369-B3FE-475E-A044-CC24CBF4786E}.Release|x64.ActiveCfg = Release|x64
+		{2877E369-B3FE-475E-A044-CC24CBF4786E}.Release|x64.Build.0 = Release|x64
+		{2877E369-B3FE-475E-A044-CC24CBF4786E}.Release|x86.ActiveCfg = Release|Win32
+		{2877E369-B3FE-475E-A044-CC24CBF4786E}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,7 +78,7 @@ Global
 		{E80BA0D9-2367-4121-ADD5-93B9C84146CF} = {EB5CE9DD-0F74-4C98-A346-48EA1D511670}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {6FC286BE-3FC2-4C87-BB2C-F9E1F24D5591}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal
