@@ -1,8 +1,11 @@
+#include "ProcessStats.h"
+
 using namespace System;
 using namespace System::Management::Automation;
 
 [Cmdlet("Measure", "Process")]
 [Alias("pbench")]
+[OutputType(ProcessStats::typeid)]
 public ref class MeasureProcessCmdlet : PSCmdlet
 {
 public:
