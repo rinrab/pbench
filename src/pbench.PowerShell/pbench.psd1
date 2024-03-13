@@ -16,7 +16,9 @@
         "pbench"
     )
     FunctionsToExport      = @()
-    FormatsToProcess       = @()
+    FormatsToProcess       = @(
+        "pbench.format.ps1xml"
+    )
     FileList               = @()
     PrivateData            = @{
         PSData = @{

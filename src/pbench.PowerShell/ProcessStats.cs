@@ -8,10 +8,10 @@ namespace pbench.PowerShell
         public TimeSpan CpuTime { get; set; }
         public TimeSpan UserTime { get; set; }
         public TimeSpan KernelTime { get; set; }
-        public TimeSpan TotalTime { get; set; }
         public long ReadCount { get; set; }
         public long ReadBytes { get; set; }
         public long WriteCount { get; set; }
         public long WriteBytes { get; set; }
+        public TimeSpan TotalTime { get; set; }
     }
 }

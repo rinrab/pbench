@@ -1,0 +1,37 @@
+<Configuration>
+  <ViewDefinitions>
+    <View>
+      <Name>default</Name>
+      <ViewSelectedBy>
+        <TypeName>pbench.PowerShell.ProcessStats</TypeName>
+      </ViewSelectedBy>
+      <CustomControl>
+        <CustomEntries>
+          <CustomEntry>
+            <CustomItem>
+              <Text>  TotalTime:</Text>
+              <ExpressionBinding>
+                <ScriptBlock>"{0,8:0.000} s" -f $_.TotalTime.TotalSeconds</ScriptBlock>
+              </ExpressionBinding>
+              <NewLine />
+              <Text>    CpuTime:</Text>
+              <ExpressionBinding>
+                <ScriptBlock>"{0,8:0.000} s" -f $_.CpuTime.TotalSeconds</ScriptBlock>
+              </ExpressionBinding>
+              <NewLine />
+              <Text>   UserTime:</Text>
+              <ExpressionBinding>
+                <ScriptBlock>"{0,8:0.000} s" -f $_.UserTime.TotalSeconds</ScriptBlock>
+              </ExpressionBinding>
+              <NewLine />
+              <Text> KernelTime:</Text>
+              <ExpressionBinding>
+                <ScriptBlock>"{0,8:0.000} s" -f $_.KernelTime.TotalSeconds</ScriptBlock>
+              </ExpressionBinding>
+            </CustomItem>
+          </CustomEntry>
+        </CustomEntries>
+      </CustomControl>
+    </View>
+  </ViewDefinitions>
+</Configuration>
