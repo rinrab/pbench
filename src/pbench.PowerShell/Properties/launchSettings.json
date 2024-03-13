@@ -3,7 +3,7 @@
         "PowerShell": {
             "commandName": "Executable",
             "executablePath": "powershell.exe",
-            "commandLineArgs": "-NoExit -Command \"& ipmo .\\pbench.PowerShell.dll -Verbose"
+            "commandLineArgs": "-NoExit -Command \"& ipmo .\\pbench.psd1 -Verbose"
         }
     }
 }
