@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Diagnostics;
 using System.Management.Automation;
 
 namespace pbench.PowerShell
@@ -14,13 +14,42 @@ namespace pbench.PowerShell
         [Parameter(ValueFromRemainingArguments = true)]
         public string[] ArgumentList { get; set; }
 
+        private Process process;
+
         protected override void ProcessRecord()
         {
+            var startInfo = new ProcessStartInfo
+            {
+                FileName = FilePath,
+                CreateNoWindow = true,
+            };
+
+            process = new Process()
+            {
+                StartInfo = startInfo,
+            };
+
+            process.Start();
+            process.WaitForExit();
+            process.Refresh();
+
+            var io = PInvoke.GetProcessIoCounters(process.Handle);
+
             WriteObject(new ProcessStats
             {
-                CpuTime = new TimeSpan(0, 0, 0, 0, 320),
-                TotalTime = new TimeSpan(0, 0, 0, 0, 500),
+                TotalTime = process.ExitTime - process.StartTime,
+                CpuTime = process.TotalProcessorTime,
+                ReadCount = io.ReadOperationCount,
+                ReadBytes = io.ReadTransferCount,
+                WriteCount = io.WriteOperationCount,
+                WriteBytes = io.WriteTransferCount,
             });
+        }
+
+        protected override void StopProcessing()
+        {
+            // TODO: correct killing
+            process.Kill();
         }
     }
 }
