@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Management.Automation;
+using System.Text;
 
 namespace pbench.PowerShell
 {
@@ -19,9 +20,33 @@ namespace pbench.PowerShell
 
         protected override void ProcessRecord()
         {
+            StringBuilder cmd = new StringBuilder();
+            if (ArgumentList != null && ArgumentList.Length > 0)
+            {
+                foreach (string arg in ArgumentList)
+                {
+                    if (ArgumentList.Length > 0)
+                    {
+                        cmd.Append(" ");
+                    }
+
+                    if (arg.IndexOf(' ') != -1 || arg.Length == 0)
+                    {
+                        cmd.Append('"');
+                        cmd.Append(arg);
+                        cmd.Append('"');
+                    }
+                    else
+                    {
+                        cmd.Append(arg);
+                    }
+                }
+            }
+
             var startInfo = new ProcessStartInfo
             {
                 FileName = FilePath,
+                Arguments = cmd.ToString(),
                 CreateNoWindow = true,
             };
 
