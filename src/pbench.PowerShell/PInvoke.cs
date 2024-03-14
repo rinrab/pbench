@@ -6,6 +6,14 @@ public class PInvoke
     [DllImport("kernel32.dll", SetLastError = true)]
     static extern bool GetProcessIoCounters(IntPtr hProcess, out IO_COUNTERS lpIoCounters);
 
+    [DllImport("kernel32.dll", SetLastError = true)]
+    public static extern bool GetProcessTimes(
+        IntPtr hProcess,
+        out long lpCreationTime,
+        out long lpExitTime,
+        out long lpKernelTime,
+        out long lpUserTime);
+
     [StructLayout(LayoutKind.Sequential)]
     public struct IO_COUNTERS
     {

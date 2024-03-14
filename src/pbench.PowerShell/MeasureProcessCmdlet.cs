@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Management.Automation;
 
 namespace pbench.PowerShell
@@ -35,10 +36,13 @@ namespace pbench.PowerShell
 
             var io = PInvoke.GetProcessIoCounters(process.Handle);
 
+            PInvoke.GetProcessTimes(process.Handle, out var lpCreationTime, out var lpExitTime, out var lpKernelTime, out var lpUserTime);
+
             WriteObject(new ProcessStats
             {
-                TotalTime = process.ExitTime - process.StartTime,
-                CpuTime = process.TotalProcessorTime,
+                TotalTime = new TimeSpan(lpExitTime - lpCreationTime),
+                CpuTime = new TimeSpan(lpKernelTime + lpUserTime),
+                UserTime = new TimeSpan(lpUserTime),
                 ReadCount = io.ReadOperationCount,
                 ReadBytes = io.ReadTransferCount,
                 WriteCount = io.WriteOperationCount,
