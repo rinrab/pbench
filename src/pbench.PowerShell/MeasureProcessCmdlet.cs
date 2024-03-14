@@ -20,60 +20,63 @@ namespace pbench.PowerShell
 
         protected override void ProcessRecord()
         {
-            StringBuilder cmd = new StringBuilder();
-            if (ArgumentList != null && ArgumentList.Length > 0)
+            using (TimerResolution.SetTimerResolution())
             {
-                foreach (string arg in ArgumentList)
+                StringBuilder cmd = new StringBuilder();
+                if (ArgumentList != null && ArgumentList.Length > 0)
                 {
-                    if (ArgumentList.Length > 0)
+                    foreach (string arg in ArgumentList)
                     {
-                        cmd.Append(" ");
-                    }
+                        if (ArgumentList.Length > 0)
+                        {
+                            cmd.Append(" ");
+                        }
 
-                    if (arg.IndexOf(' ') != -1 || arg.Length == 0)
-                    {
-                        cmd.Append('"');
-                        cmd.Append(arg);
-                        cmd.Append('"');
-                    }
-                    else
-                    {
-                        cmd.Append(arg);
+                        if (arg.IndexOf(' ') != -1 || arg.Length == 0)
+                        {
+                            cmd.Append('"');
+                            cmd.Append(arg);
+                            cmd.Append('"');
+                        }
+                        else
+                        {
+                            cmd.Append(arg);
+                        }
                     }
                 }
+
+                var startInfo = new ProcessStartInfo
+                {
+                    FileName = FilePath,
+                    Arguments = cmd.ToString(),
+                    CreateNoWindow = false,
+                    UseShellExecute = false,
+                };
+
+                process = new Process()
+                {
+                    StartInfo = startInfo,
+                };
+
+                process.Start();
+                process.WaitForExit();
+                process.Refresh();
+
+                var io = PInvoke.GetProcessIoCounters(process.Handle);
+
+                PInvoke.GetProcessTimes(process.Handle, out var lpCreationTime, out var lpExitTime, out var lpKernelTime, out var lpUserTime);
+
+                WriteObject(new ProcessStats
+                {
+                    TotalTime = new TimeSpan(lpExitTime - lpCreationTime),
+                    CpuTime = new TimeSpan(lpKernelTime + lpUserTime),
+                    UserTime = new TimeSpan(lpUserTime),
+                    ReadCount = io.ReadOperationCount,
+                    ReadBytes = io.ReadTransferCount,
+                    WriteCount = io.WriteOperationCount,
+                    WriteBytes = io.WriteTransferCount,
+                });
             }
-
-            var startInfo = new ProcessStartInfo
-            {
-                FileName = FilePath,
-                Arguments = cmd.ToString(),
-                CreateNoWindow = false,
-                UseShellExecute = false,
-            };
-
-            process = new Process()
-            {
-                StartInfo = startInfo,
-            };
-
-            process.Start();
-            process.WaitForExit();
-            process.Refresh();
-
-            var io = PInvoke.GetProcessIoCounters(process.Handle);
-
-            PInvoke.GetProcessTimes(process.Handle, out var lpCreationTime, out var lpExitTime, out var lpKernelTime, out var lpUserTime);
-
-            WriteObject(new ProcessStats
-            {
-                TotalTime = new TimeSpan(lpExitTime - lpCreationTime),
-                CpuTime = new TimeSpan(lpKernelTime + lpUserTime),
-                UserTime = new TimeSpan(lpUserTime),
-                ReadCount = io.ReadOperationCount,
-                ReadBytes = io.ReadTransferCount,
-                WriteCount = io.WriteOperationCount,
-                WriteBytes = io.WriteTransferCount,
-            });
         }
 
         protected override void StopProcessing()
