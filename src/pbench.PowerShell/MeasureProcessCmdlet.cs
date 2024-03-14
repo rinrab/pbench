@@ -45,37 +45,35 @@ namespace pbench.PowerShell
                     }
                 }
 
-                var startInfo = new ProcessStartInfo
+                using (process = new Process())
                 {
-                    FileName = FilePath,
-                    Arguments = cmd.ToString(),
-                    CreateNoWindow = false,
-                    UseShellExecute = false,
-                };
+                    process.StartInfo = new ProcessStartInfo
+                    {
+                        FileName = FilePath,
+                        Arguments = cmd.ToString(),
+                        CreateNoWindow = false,
+                        UseShellExecute = false,
+                    };
 
-                process = new Process()
-                {
-                    StartInfo = startInfo,
-                };
+                    process.Start();
+                    process.WaitForExit();
+                    process.Refresh();
 
-                process.Start();
-                process.WaitForExit();
-                process.Refresh();
+                    var io = PInvoke.GetProcessIoCounters(process.Handle);
 
-                var io = PInvoke.GetProcessIoCounters(process.Handle);
+                    PInvoke.GetProcessTimes(process.Handle, out var lpCreationTime, out var lpExitTime, out var lpKernelTime, out var lpUserTime);
 
-                PInvoke.GetProcessTimes(process.Handle, out var lpCreationTime, out var lpExitTime, out var lpKernelTime, out var lpUserTime);
-
-                WriteObject(new ProcessStats
-                {
-                    TotalTime = new TimeSpan(lpExitTime - lpCreationTime),
-                    CpuTime = new TimeSpan(lpKernelTime + lpUserTime),
-                    UserTime = new TimeSpan(lpUserTime),
-                    ReadCount = io.ReadOperationCount,
-                    ReadBytes = io.ReadTransferCount,
-                    WriteCount = io.WriteOperationCount,
-                    WriteBytes = io.WriteTransferCount,
-                });
+                    WriteObject(new ProcessStats
+                    {
+                        TotalTime = new TimeSpan(lpExitTime - lpCreationTime),
+                        CpuTime = new TimeSpan(lpKernelTime + lpUserTime),
+                        UserTime = new TimeSpan(lpUserTime),
+                        ReadCount = io.ReadOperationCount,
+                        ReadBytes = io.ReadTransferCount,
+                        WriteCount = io.WriteOperationCount,
+                        WriteBytes = io.WriteTransferCount,
+                    });
+                }
             }
         }
 
