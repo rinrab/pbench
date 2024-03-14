@@ -28,6 +28,27 @@
               <ExpressionBinding>
                 <ScriptBlock>"{0,8:0.000} s" -f $_.KernelTime.TotalSeconds</ScriptBlock>
               </ExpressionBinding>
+              <NewLine />
+              <Text>  ReadCount:</Text>
+              <ExpressionBinding>
+                <ScriptBlock>"{0,8}" -f $_.ReadCount</ScriptBlock>
+              </ExpressionBinding>
+              <NewLine />
+              <Text>  ReadBytes:</Text>
+              <ExpressionBinding>
+                <ScriptBlock>"{0,8} KB" -f [int]($_.ReadBytes / 1024)</ScriptBlock>
+              </ExpressionBinding>
+              <NewLine />
+              <Text> WriteCount:</Text>
+              <ExpressionBinding>
+                <ScriptBlock>"{0,8}" -f $_.WriteCount</ScriptBlock>
+              </ExpressionBinding>
+              <NewLine />
+              <Text> WriteBytes:</Text>
+              <ExpressionBinding>
+                <ScriptBlock>"{0,8} KB" -f [int]($_.WriteBytes/ 1024)</ScriptBlock>
+              </ExpressionBinding>
+              <NewLine />
             </CustomItem>
           </CustomEntry>
         </CustomEntries>
