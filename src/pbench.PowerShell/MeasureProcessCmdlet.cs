@@ -68,6 +68,7 @@ namespace pbench.PowerShell
                         TotalTime = new TimeSpan(lpExitTime - lpCreationTime),
                         CpuTime = new TimeSpan(lpKernelTime + lpUserTime),
                         UserTime = new TimeSpan(lpUserTime),
+                        KernelTime = new TimeSpan(lpKernelTime),
                         ReadCount = io.ReadOperationCount,
                         ReadBytes = io.ReadTransferCount,
                         WriteCount = io.WriteOperationCount,
