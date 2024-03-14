@@ -48,6 +48,7 @@ namespace pbench.PowerShell
                 FileName = FilePath,
                 Arguments = cmd.ToString(),
                 CreateNoWindow = true,
+                UseShellExecute = false,
             };
 
             process = new Process()
